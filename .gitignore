@@ -30,3 +30,7 @@ step01/gradle/wrapper/
 *.bat
 
 step01/gradlew
+
+step02/gradle/wrapper/
+
+step02/gradlew
