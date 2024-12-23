@@ -1,0 +1,1 @@
+* @Router를 활용해서 kafkaInboundEventChannel 로 들어온 메세지를 토픽 별 채널로 브로드캐스트 하는 예제

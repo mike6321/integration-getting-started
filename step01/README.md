@@ -1,0 +1,1 @@
+* kafkaInboundEventChannel (QueueChannel) 로 컨슘하는 예제
