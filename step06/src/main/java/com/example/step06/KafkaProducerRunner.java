@@ -16,11 +16,11 @@ public class KafkaProducerRunner implements CommandLineRunner {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
-    private static final String TOPIC = "inbound-topic";
+    private static final String TOPIC = "inbound-topic1";
 
     @Override
     public void run(String... args) throws Exception {
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= 200000; i++) {
 //            Thread.sleep(1000);
             String message = getMessage();
             kafkaTemplate.send(TOPIC, message);

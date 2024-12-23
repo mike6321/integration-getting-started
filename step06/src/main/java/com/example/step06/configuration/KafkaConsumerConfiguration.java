@@ -34,7 +34,7 @@ public class KafkaConsumerConfiguration {
 
     private final KafkaProperties kafkaProperties;
     private final ObjectMapper objectMapper;
-    private static final String TOPIC = "inbound-topic";
+    private static final String TOPIC = "inbound-topic1";
     private static final String GROUP_ID = "inbound-topic-group";
 
     @Bean(name = PollerMetadata.DEFAULT_POLLER)
