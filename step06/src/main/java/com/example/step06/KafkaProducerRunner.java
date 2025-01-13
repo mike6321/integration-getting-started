@@ -20,13 +20,18 @@ public class KafkaProducerRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        for (int i = 1; i <= 200000; i++) {
-//            Thread.sleep(1000);
+        while (true) {
             String message = getMessage();
             kafkaTemplate.send(TOPIC, message);
         }
 
-        log.info("Published 10 messages to Kafka");
+//        for (int i = 1; i <= 500000; i++) {
+////            Thread.sleep(1000);
+//            String message = getMessage();
+//            kafkaTemplate.send(TOPIC, message);
+//        }
+
+//        log.info("Published 10 messages to Kafka");
     }
 
     private String getMessage() throws JsonProcessingException {

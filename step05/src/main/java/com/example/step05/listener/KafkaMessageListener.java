@@ -1,6 +1,7 @@
 package com.example.step05.listener;
 
 import com.example.step05.domain.Domain;
+import datadog.trace.api.Trace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
@@ -18,12 +19,21 @@ public class KafkaMessageListener {
     private static final String TOPIC = "inbound-topic";
     private final ApplicationContext applicationContext;
 
+    @Trace(operationName = "servlet.event.consume", resourceName = "ShowroomRefreshRequestedEvent")
     @ServiceActivator(inputChannel = TOPIC)
-    public void handleKafkaMessage(Domain message) {
+    public void handleKafkaMessage1(Domain message) {
         log.info("Received message: {}", message);
 
         var messageChannel = (MessageChannel) applicationContext.getBean("kafkaOutBoundEventHandler");
         messageChannel.send(new GenericMessage<>(message));
     }
+
+//    @ServiceActivator(inputChannel = TOPIC)
+//    public void handleKafkaMessage2(Domain message) {
+//        log.info("Received message: {}", message);
+//
+//        var messageChannel = (MessageChannel) applicationContext.getBean("kafkaOutBoundEventHandler");
+//        messageChannel.send(new GenericMessage<>(message));
+//    }
 
 }

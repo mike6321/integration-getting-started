@@ -46,8 +46,8 @@ public class KafkaConsumerConfiguration {
     @Bean
     public ThreadPoolTaskExecutor pollTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(40);
-        executor.setQueueCapacity(100);
+        executor.setCorePoolSize(6);
+        executor.setQueueCapacity(200000);
         executor.setAllowCoreThreadTimeOut(true);
         executor.setThreadNamePrefix("poller-");
         executor.setWaitForTasksToCompleteOnShutdown(true);
@@ -60,8 +60,7 @@ public class KafkaConsumerConfiguration {
     @Bean
     public ThreadPoolTaskExecutor inBoundTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(100);
-        executor.setMaxPoolSize(100);
+        executor.setCorePoolSize(6);
         executor.setAllowCoreThreadTimeOut(true);
         executor.setThreadNamePrefix("inBoundTaskExecutor-");
         executor.setWaitForTasksToCompleteOnShutdown(true);

@@ -18,9 +18,9 @@ public class kafkaOutboundEventChannelListener {
     private static final String TOPIC = "outbound-topic";
 
     @ServiceActivator(inputChannel = "kafkaOutBoundEventHandler", outputChannel = "kafkaOutboundEventChannel")
-    public Message<String> handle(Domain message) {
+    public Message<String> handle(Domain message) throws InterruptedException {
         log.info("Received message (kafkaOutboundEventChannelListener): {}", message);
-
+        Thread.sleep(200);
         return MessageBuilder.withPayload(messageToJson(message))
                 .setHeader(KafkaHeaders.TOPIC, TOPIC)
                 .build();

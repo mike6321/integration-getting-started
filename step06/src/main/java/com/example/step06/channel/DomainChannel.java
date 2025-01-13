@@ -10,6 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class DomainChannel {
 
+    @Bean(name = "errorChannel")
+    public PublishSubscribeChannel errorChannel() {
+        return new PublishSubscribeChannel();
+    }
+
     @Bean(name = "inbound-topic1")
     public PollableChannel inBoundChannel1() {
         return new QueueChannel();

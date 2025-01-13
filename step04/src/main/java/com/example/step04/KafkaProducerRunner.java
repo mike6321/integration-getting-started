@@ -17,23 +17,22 @@ public class KafkaProducerRunner implements CommandLineRunner {
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
     private static final String TOPIC = "inbound-topic";
-    private static final int RATE = 10;
+    private static final int RATE = 20000;
 
     @Override
     public void run(String... args) throws Exception {
         for (int i = 1; i <= RATE; i++) {
-            String message = getMessage();
-//            Thread.sleep(1000L);
+            String message = getMessage(i);
             kafkaTemplate.send(TOPIC, message);
         }
 
         log.info("Published 10 messages to Kafka");
     }
 
-    private String getMessage() throws JsonProcessingException {
+    private String getMessage(int sequence) throws JsonProcessingException {
         Domain domain = Domain.builder()
                 .name("junwoo")
-                .age(34)
+                .age(sequence)
                 .build();
 
         return objectMapper.writeValueAsString(domain);

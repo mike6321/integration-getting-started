@@ -18,7 +18,7 @@ public class MessageTaskExecutorHealthCheck {
     private final ThreadPoolTaskExecutor inBoundTaskExecutor;
     private final ThreadPoolTaskExecutor messageTaskExecutor;
 
-    @Scheduled(cron = "0/20 * * * * *")
+//    @Scheduled(cron = "0/20 * * * * *")
     public void messageExecutorHealth() {
         ThreadPoolExecutor pollTaskExecutorThreadPoolExecutor = pollTaskExecutor.getThreadPoolExecutor();
         ThreadPoolExecutor inBoundTaskExecutorThreadPoolExecutor = inBoundTaskExecutor.getThreadPoolExecutor();

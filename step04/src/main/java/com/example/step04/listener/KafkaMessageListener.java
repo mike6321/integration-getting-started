@@ -1,6 +1,7 @@
 package com.example.step04.listener;
 
 import com.example.step04.domain.Domain;
+import datadog.trace.api.Trace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
@@ -21,16 +22,27 @@ public class KafkaMessageListener {
     private final ApplicationContext applicationContext;
 
     /**
-     * @see AbstractPollingEndpoint#doStart()
+     * @see org.springframework.integration.endpoint.AbstractPollingEndpoint#doStart()
      * @see org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler#schedule(Runnable, Trigger)
-     * @see AbstractPollingEndpoint#createPoller()
+     * @see org.springframework.integration.endpoint.AbstractPollingEndpoint#createPoller()
      * */
-    @ServiceActivator(inputChannel = TOPIC, poller = @Poller(fixedRate = "200", taskExecutor = "inBoundTaskExecutor"))
-    public void handleKafkaMessage(Domain message) {
+    @Trace(operationName = "servlet.event.consume", resourceName = "ShowroomRefreshRequestedEvent", noParent = true)
+    @ServiceActivator(inputChannel = TOPIC, poller = @Poller(fixedRate = "30", taskExecutor = "inBoundTaskExecutor"))
+    public void handleKafkaMessage1(Domain message) throws InterruptedException {
         log.info("Received message: {}", message);
+//        Thread.sleep(1000);
 
         var messageChannel = (MessageChannel) applicationContext.getBean("kafkaOutBoundEventHandler");
         messageChannel.send(new GenericMessage<>(message));
     }
+
+    // multiple methods with the same input channel
+//    @ServiceActivator(inputChannel = TOPIC, poller = @Poller(fixedRate = "200", taskExecutor = "messageTaskExecutor"))
+//    public void handleKafkaMessage2(Domain message) {
+//        log.info("Received message: {}", message);
+//
+//        var messageChannel = (MessageChannel) applicationContext.getBean("kafkaOutBoundEventHandler");
+//        messageChannel.send(new GenericMessage<>(message));
+//    }
 
 }
